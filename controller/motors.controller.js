@@ -18,15 +18,26 @@ exports.createNewMotor = asyncHandler(async (req, res, next) => {
 
 // Get all data
 exports.getAllMotors = asyncHandler(async (req, res, next) => {
-    const motors = await Motors.find({})
+    const pageLimit = process.env.DEFAULT_PAGE_LIMIT || 10;
+
+    const limit = parseInt(req.query.limit || pageLimit);
+    const page = parseInt(req.query.page || 1);
+    const total = await Motors.countDocuments();
+  
+    const motors = await Motors.find()
+      .skip(page * limit - limit)
+      .limit(limit);
     res.status(200).json({
         success: true,
-        data: motors,
+        pageCount: Math.ceil(total / limit),
+        currentPage: page,
+        next: Math.ceil(total / limit) < page + 1 ? null : page + 1,
+        data: motors,    
     });
 });
 
 // Get data by id
-exports.getMotorByID = asyncHandler(async (req, res, next) => {
+exports.getMotorById = asyncHandler(async (req, res, next) => {
     const motorId = req.params.id;
     const data = await Motors.findById(motorId);
 
@@ -35,26 +46,21 @@ exports.getMotorByID = asyncHandler(async (req, res, next) => {
 
 // Update data
 exports.updateMotor = asyncHandler(async (req, res) => {
-    const motorId = req.params.id;
     const updatedData = {
         name: req.body.name || null,
         company: req.body.company || null,
         cost: req.body.cost || null,
         licence: req.body.licence || null,
     };
-    const updatedMotor = await Motors.findByIdAndUpdate(motorId, updatedData, {
-        new: true,
-    });
-
+    const updatedMotor = await Motors.findByIdAndUpdate(req.params.id, updatedData);
     res.status(200).json({
-        success: true,
+        success: true, 
         data: updatedMotor,
     });
 });
 
 //Delete data
-exports.deleteData = asyncHandler(async (req, res) => {
-    const motorId = req.params.id;
-    const deletedData = await Motors.findByIdAndDelete(motorId);
-    res.status(200).json(`Data deleted succesfully ${deletedData}`);
+exports.deleteMotor = asyncHandler(async (req, res) => {
+    await Motors.findByIdAndDelete(req.params.id);
+    res.status(200).json("Data deleted succesfully");
 })

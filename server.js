@@ -29,6 +29,7 @@ if (process.env.NOD_ENV === "development") {
 }
 
 app.use("/api/v1/motors", require("./routes/motor.route"));
+app.use("/api/v1/caravans", require("./routes/caravan.route"));
 
 const PORT = process.env.PORT || 3000;
 
