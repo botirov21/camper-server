@@ -7,6 +7,10 @@ const tuningSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    brand: {
+      type: String,
+      required: true,
+    },
     company: {
       type: String,
       required: true,
@@ -19,6 +23,14 @@ const tuningSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    seats: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    }
   },
   {
     timestamps: true,

@@ -6,9 +6,12 @@ const UsedCar = require("../models/usedCar");
 exports.createNewUsedCar = asyncHandler(async (req, res, next) => {
     const newUsedCar = await UsedCar.create({
         name: req.body.name,
+        brand: req.body.brand,
         company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
+        seats: req.body.seats,
+        location: req.body.location,
     });
     res.status(200).json({
         success: true,
@@ -46,9 +49,12 @@ exports.getUsedCarById = asyncHandler(async (req, res, next) => {
 exports.updateUsedCar = asyncHandler(async (req, res) => {
     const updatedData = {
         name: req.body.name,
+        brand: req.body.brand,
         company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
+        seats: req.body.seats,
+        location: req.body.location,
     };
     const updatedUsedCar = await UsedCar.findByIdAndUpdate(req.params.id, updatedData);
     res.status(200).json({

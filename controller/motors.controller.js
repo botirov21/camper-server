@@ -6,9 +6,12 @@ const Motors = require("../models/motors");
 exports.createNewMotor = asyncHandler(async (req, res, next) => {
     const newMotor = await Motors.create({
         name: req.body.name,
+        brand: req.body.brand,
         company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
+        seats: req.body.seats,
+        location: req.body.location,
     });
     res.status(200).json({
         success: true,
@@ -47,10 +50,13 @@ exports.getMotorById = asyncHandler(async (req, res, next) => {
 // Update data
 exports.updateMotor = asyncHandler(async (req, res) => {
     const updatedData = {
-        name: req.body.name || null,
-        company: req.body.company || null,
-        cost: req.body.cost || null,
-        licence: req.body.licence || null,
+        name: req.body.name,
+        brand: req.body.brand,
+        company: req.body.company,
+        cost: req.body.cost,
+        licence: req.body.licence,
+        seats: req.body.seats,
+        location: req.body.location,
     };
     const updatedMotor = await Motors.findByIdAndUpdate(req.params.id, updatedData);
     res.status(200).json({

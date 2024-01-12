@@ -6,9 +6,12 @@ const Tuning = require("../models/tuning");
 exports.createNewTuning = asyncHandler(async (req, res, next) => {
     const newTuning = await Tuning.create({
         name: req.body.name,
+        brand: req.body.brand,
         company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
+        seats: req.body.seats,
+        location: req.body.location,
     });
     res.status(200).json({
         success: true,
@@ -46,9 +49,12 @@ exports.getTuningById = asyncHandler(async (req, res, next) => {
 exports.updateTuning= asyncHandler(async (req, res) => {
     const updatedData = {
         name: req.body.name,
+        brand: req.body.brand,
         company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
+        seats: req.body.seats,
+        location: req.body.location,
     };
     const updatedTuning = await Tuning.findByIdAndUpdate(req.params.id, updatedData);
     res.status(200).json({
