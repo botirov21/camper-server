@@ -11,10 +11,6 @@ const tuningSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    company: {
-      type: String,
-      required: true,
-    },
     cost: {
       type: String,
       required: true,

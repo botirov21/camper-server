@@ -7,7 +7,6 @@ exports.createNewMotor = asyncHandler(async (req, res, next) => {
     const newMotor = await Motors.create({
         name: req.body.name,
         brand: req.body.brand,
-        company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
         seats: req.body.seats,
@@ -52,7 +51,6 @@ exports.updateMotor = asyncHandler(async (req, res) => {
     const updatedData = {
         name: req.body.name,
         brand: req.body.brand,
-        company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
         seats: req.body.seats,

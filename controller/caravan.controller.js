@@ -7,7 +7,6 @@ exports.createNewCaravan = asyncHandler(async (req, res, next) => {
     const newCaravan = await Caravan.create({
         name: req.body.name,
         brand: req.body.brand,
-        company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
         seats: req.body.seats,
@@ -50,7 +49,6 @@ exports.updateCaravan = asyncHandler(async (req, res) => {
     const updatedData = {
         name: req.body.name,
         brand: req.body.brand,
-        company: req.body.company,
         cost: req.body.cost,
         licence: req.body.licence,
         seats: req.body.seats,
