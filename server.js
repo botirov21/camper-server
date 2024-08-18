@@ -15,7 +15,7 @@ dotenv.config();
 // connected DB
 
 connectDB();
-
+  
 // App instance
 const app = express();
 
@@ -36,7 +36,7 @@ app.use("/api/v1/auth", require("./routes/auth.route"));
 app.use("/api/v1/adminAuth", require("./routes/adminAuth.route"));
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`.bgGreen.bold);

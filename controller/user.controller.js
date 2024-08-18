@@ -12,6 +12,7 @@ exports.register = asyncHandler(async (req, res, next) => {
   const apiKey = uuid.v4();
 
   const user = await User.create({
+    name,
     password,
     email,
     apiKey,
@@ -27,33 +28,62 @@ exports.register = asyncHandler(async (req, res, next) => {
 //route     POST /api/v1/auth/login
 //accesss   Public
 
+// exports.login = asyncHandler(async (req, res, next) => {
+//   const { email, password} = req.body;
+
+//   if (!email || !password) {
+//     return next("email or password is wrong");
+//   }             
+
+//   const user = await User.findOne({
+//     email,
+//   });
+
+//   console.log(user);
+//   if (!user) {
+//     return next("not found email");
+//   }
+
+//   const isMatch = await user.matchPassword(password);
+//   console.log(isMatch);
+//   if (!isMatch) {
+//     return next(" wrong password");
+//   }
+
+//   res.status(200).json({
+//     success: true,
+//     data: user,
+//   });
+// });
+
 exports.login = asyncHandler(async (req, res, next) => {
-  const { email, password} = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password) {
-    return next("email or password is wrong");
-  }             
+    return next("Email or password is missing");
+  }
 
-  const user = await User.findOne({
-    email,
-  });
+  const user = await User.findOne({ email });
 
-  console.log(user);
   if (!user) {
-    return next("not found email");
+    return next("User not found");
   }
 
   const isMatch = await user.matchPassword(password);
-  console.log(isMatch);
+
   if (!isMatch) {
-    return next(" wrong password");
+    return next("Incorrect password");
   }
+
+  // Assuming 'name' is a field in your User model
+  const { _id, name } = user;
 
   res.status(200).json({
     success: true,
-    data: user,
+    data: { _id, name, email }, // Include 'name' in the response
   });
 });
+
 //desc      Get All user  user
 //route     POST /api/v1/auth/login
 //accesss   Public
