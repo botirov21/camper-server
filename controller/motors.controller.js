@@ -11,6 +11,7 @@ exports.createNewMotor = asyncHandler(async (req, res, next) => {
         licence: req.body.licence,
         seats: req.body.seats,
         location: req.body.location,
+        image: req.body.image,
     });
     res.status(200).json({
         success: true,
@@ -55,6 +56,7 @@ exports.updateMotor = asyncHandler(async (req, res) => {
         licence: req.body.licence,
         seats: req.body.seats,
         location: req.body.location,
+        image: req.body.image,
     };
     const updatedMotor = await Motors.findByIdAndUpdate(req.params.id, updatedData);
     res.status(200).json({
